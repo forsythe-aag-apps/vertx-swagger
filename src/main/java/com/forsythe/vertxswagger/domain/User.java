@@ -3,6 +3,7 @@ package com.forsythe.vertxswagger.domain;
 import io.swagger.annotations.ApiModelProperty;
 
 public class User {
+    private Long id;
     private String login;
     private String email;
     private String firstName;
@@ -10,11 +11,20 @@ public class User {
 
     public User() {}
 
-    public User(String login, String email, String firstName, String lastName) {
+    public User(Long id, String login, String email, String firstName, String lastName) {
+        this.id = id;
         this.login = login;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     @ApiModelProperty(example = "john@doe.com")

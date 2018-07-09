@@ -1,6 +1,7 @@
 package com.forsythe.vertxswagger;
 
 import static javax.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
+import static javax.servlet.http.HttpServletResponse.SC_OK;
 import static javax.servlet.http.HttpServletResponse.SC_SERVICE_UNAVAILABLE;
 
 import com.forsythe.vertxswagger.domain.User;
@@ -32,9 +33,9 @@ public class RestVerticle extends AbstractVerticle {
     private static final String API_USERS = "/users";
 
     private static List<User> users = new ArrayList<User>() {{
-        add(new User("user1", "user1@test.com", "User", "Test 1"));
-        add(new User("user2", "user2@test.com", "User", "Test 2"));
-        add(new User("user3", "user3@test.com", "User", "Test 3"));
+        add(new User(1L, "user1", "user1@test.com", "User", "Test 1"));
+        add(new User(2L, "user2", "user2@test.com", "User", "Test 2"));
+        add(new User(3L, "user3", "user3@test.com", "User", "Test 3"));
     }};
 
     @Override
@@ -121,6 +122,7 @@ public class RestVerticle extends AbstractVerticle {
             authorizations = @Authorization(value = "auth")
     )
     @ApiResponses(value = {
+            @ApiResponse(code = SC_OK, message = "Success"),
             @ApiResponse(code = SC_INTERNAL_SERVER_ERROR, message = "Internal Server Error"),
             @ApiResponse(code = SC_SERVICE_UNAVAILABLE, message = "Service Unavailable")})
     @ApiImplicitParams(value = {
@@ -148,7 +150,7 @@ public class RestVerticle extends AbstractVerticle {
         routingContext.response()
                 .putHeader("content-type", "application/json")
                 .setStatusCode(200)
-                .end();
+                .end(Json.encodePrettily(users.stream().findFirst().get()));
     }
 
     private void saveUser(RoutingContext routingContext) {
