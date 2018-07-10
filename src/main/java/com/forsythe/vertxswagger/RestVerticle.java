@@ -81,7 +81,7 @@ public class RestVerticle extends AbstractVerticle {
     @ApiResponses(value = {
             @ApiResponse(code = SC_INTERNAL_SERVER_ERROR, message = "Internal Server Error"),
             @ApiResponse(code = SC_SERVICE_UNAVAILABLE, message = "Service Unavailable")})
-    @VertxPath("/users")
+    @VertxPath(API_USERS)
     private void getUsers(RoutingContext routingContext) {
         routingContext.response()
                 .putHeader("content-type", "application/json")
@@ -98,7 +98,7 @@ public class RestVerticle extends AbstractVerticle {
     @ApiImplicitParams(value = {
             @ApiImplicitParam(dataType = "com.forsythe.vertxswagger.domain.User", paramType = "body")
     })
-    @VertxPath("/users")
+    @VertxPath(API_USERS)
     private void createUser(RoutingContext routingContext) {
         saveUser(routingContext);
     }
@@ -113,7 +113,7 @@ public class RestVerticle extends AbstractVerticle {
             @ApiImplicitParam(dataType = "com.forsythe.vertxswagger.domain.User", paramType = "body"),
             @ApiImplicitParam(paramType = "path", name = "id", required = true, type = "integer")
     })
-    @VertxPath("/users/:id")
+    @VertxPath(API_USER_BY_ID)
     private void updateUser(RoutingContext routingContext) {
         saveUser(routingContext);
     }
@@ -128,7 +128,7 @@ public class RestVerticle extends AbstractVerticle {
     @ApiImplicitParams(value = {
             @ApiImplicitParam(paramType = "path", name = "id", required = true, type = "integer")
     })
-    @VertxPath("/users/:id")
+    @VertxPath(API_USER_BY_ID)
     private void deleteUser(RoutingContext routingContext) {
         routingContext.response()
                 .putHeader("content-type", "application/json")
@@ -145,7 +145,7 @@ public class RestVerticle extends AbstractVerticle {
     @ApiImplicitParams(value = {
             @ApiImplicitParam(paramType = "path", name = "id", required = true, dataType = "integer", value = "User ID")
     })
-    @VertxPath("/users/:id")
+    @VertxPath(API_USER_BY_ID)
     private void getUser(RoutingContext routingContext) {
         routingContext.response()
                 .putHeader("content-type", "application/json")
